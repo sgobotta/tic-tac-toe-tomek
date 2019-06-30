@@ -56,7 +56,7 @@ evalCases cs = if any (\c -> c == WX) cs
                     else if any (\c -> c == Unfinished) cs
                          then Unfinished
                          else Draw
-
+-- Purpose: given a Case, returns a String representing a game result.
 answer :: Case -> String
 answer WX         = "X won"
 answer WO         = "O won"

@@ -1,5 +1,16 @@
 # tic-tac-toe-tomek
 
+### Compiling
+
+```bash
+ghc -o main solution.hs
+```
+
+### Running the program
+```bash
+./main "input/A-large-practice.in" "output"
+```
+
 #### Problem
 
 Tic-Tac-Toe-Tomek is a game played on a 4 x 4 square board. The board starts empty, except that a single 'T' symbol may appear in one of the 16 squares. There are two players: X and O. They take turns to make moves, with X starting. In each move a player puts her symbol in one of the empty squares. Player X's symbol is 'X', and player O's symbol is 'O'.

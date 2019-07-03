@@ -23,7 +23,7 @@ toCell 'T' = T
 -- Unfinished: the game did not finished
 data Case = WX | WO | Draw | Unfinished deriving (Show, Eq)
 
--- A row is used to represent a row in a board, but also represents a column or a diagnoal of the board. 
+-- A row is used to represent a row in a board, but also represents a column or a diagnoal of the board.
 type Odd = [Cell]
 type Row = [Cell]
 type Column = [Cell]
@@ -32,20 +32,17 @@ type Diagonal = [Cell]
 -- A board type is a list of all the rows, columns and diagonals in a given board case. Every odd.
 type Board = [[Cell]]
 
--- Purpose: given a Board, representing every odd in a tic-tac-toe-tomek game, 
+-- Purpose: given a Board, representing every odd in a tic-tac-toe-tomek game,
 -- returns a simplified result for a single tic-tac-toe-tomek case.
 evalCaseChunks :: Board -> [Case]
 evalCaseChunks css = map evalCaseChunk css
 
 -- Purpose: given an Odd (Row or Column or Diagonal),  returns the state of that odd represented as a Case.
 evalCaseChunk :: Odd -> Case
-evalCaseChunk cs = if any (\c -> c == D) cs
-                   then Unfinished
-                   else if isWinner X cs
-                        then WX
-                        else if isWinner O cs
-                             then WO
-                             else Draw
+evalCaseChunk cs | any (\c -> c == D) cs = Unfinished
+                 | isWinner X cs = WX
+                 | isWinner O cs = WO
+                 | otherwise = Draw
 
 -- Purpose: given a Cell `c` (X or O), evaluates an Odd to determine if `c` is a winner.
 isWinner :: Cell -> Odd -> Bool
@@ -55,13 +52,10 @@ isWinner c = all (\x -> x == c || x == T)
 -- tic-tac-toe-tomek game, returns a final state for that game, represented as
 -- a Case.
 evalCases :: [Case] -> Case
-evalCases cs = if any (\c -> c == WX) cs
-               then WX
-               else if any (\c -> c == WO) cs
-                    then WO
-                    else if any (\c -> c == Unfinished) cs
-                         then Unfinished
-                         else Draw
+evalCases cs | any (\c -> c == WX) cs = WX
+             | any (\c -> c == WO) cs = WO
+             | any (\c -> c == Unfinished) cs = Unfinished
+             | otherwise = Draw
 
 -- Purpose: given a Case, returns a String representing a game result.
 answer :: Case -> String

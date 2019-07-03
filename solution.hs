@@ -35,13 +35,10 @@ evalCaseChunks css = map evalCaseChunk css
 -- Purpose: given a list of Cell, representing an odd of a tic-tac-toe-tomek
 -- game, returns the state of that odd represented as a Case.
 evalCaseChunk :: Row -> Case
-evalCaseChunk cs = if any (\c -> c == D) cs
-                   then Unfinished
-                   else if isWinner X cs
-                        then WX
-                        else if isWinner O cs
-                             then WO
-                             else Draw
+evalCaseChunk cs | any (\c -> c == D) cs = Unfinished
+                 | isWinner X cs = WX
+                 | isWinner O cs = WO
+                 | otherwise = Draw
 
 -- Purpose: given a Cell `c` (X or O), evaluates a list of Cell to determine
 -- if `c` is a winner.
@@ -52,13 +49,11 @@ isWinner c = all (\x -> x == c || x == T)
 -- tic-tac-toe-tomek game, returns a final state for that game, represented as
 -- a Case.
 evalCases :: [Case] -> Case
-evalCases cs = if any (\c -> c == WX) cs
-               then WX
-               else if any (\c -> c == WO) cs
-                    then WO
-                    else if any (\c -> c == Unfinished) cs
-                         then Unfinished
-                         else Draw
+evalCases cs | any (\c -> c == WX) cs = WX
+             | any (\c -> c == WO) cs = WO
+             | any (\c -> c == Unfinished) cs = Unfinished
+             | otherwise = Draw
+
 -- Purpose: given a Case, returns a String representing a game result.
 answer :: Case -> String
 answer WX         = "X won"
